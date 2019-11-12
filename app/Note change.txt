@@ -1,0 +1,103 @@
+Note change:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/Android.mk
+
+LOCAL_MODULE := cocos2dx_internal_static							LOCAL_MODULE := cc_core
+LOCAL_MODULE_FILENAME := libcocos2dxinternal						LOCAL_MODULE_FILENAME := libcc_core
+LOCAL_STATIC_LIBRARIES := cocos_freetype2_static					LOCAL_STATIC_LIBRARIES := ext_freetype2
+LOCAL_STATIC_LIBRARIES += cocos_png_static							LOCAL_STATIC_LIBRARIES += ext_png
+LOCAL_STATIC_LIBRARIES += cocos_jpeg_static							LOCAL_STATIC_LIBRARIES += ext_jpeg
+LOCAL_STATIC_LIBRARIES += cocos_tiff_static							LOCAL_STATIC_LIBRARIES += ext_tiff
+LOCAL_STATIC_LIBRARIES += cocos_webp_static							LOCAL_STATIC_LIBRARIES += ext_webp
+LOCAL_STATIC_LIBRARIES += cocos_chipmunk_static						LOCAL_STATIC_LIBRARIES += ext_chipmunk 
+LOCAL_STATIC_LIBRARIES += cocos_zlib_static							LOCAL_STATIC_LIBRARIES += ext_zlib
+LOCAL_STATIC_LIBRARIES += cocos_ssl_static							LOCAL_STATIC_LIBRARIES += ext_ssl
+LOCAL_STATIC_LIBRARIES += recast_static								LOCAL_STATIC_LIBRARIES += ext_recast
+LOCAL_STATIC_LIBRARIES += bullet_static								LOCAL_STATIC_LIBRARIES += ext_bullet
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dxandroid_static				LOCAL_WHOLE_STATIC_LIBRARIES := ccandroid
+
+LOCAL_MODULE := cocos2dx_internal_static							LOCAL_MODULE := cc_static
+LOCAL_MODULE_FILENAME := libcocos2d 								LOCAL_MODULE_FILENAME := libcc
+
+LOCAL_STATIC_LIBRARIES := cocostudio_static 						LOCAL_STATIC_LIBRARIES := ccs
+LOCAL_STATIC_LIBRARIES += cocosbuilder_static 						LOCAL_STATIC_LIBRARIES += ccb
+LOCAL_STATIC_LIBRARIES += cocos3d_static 							LOCAL_STATIC_LIBRARIES += cc3d
+LOCAL_STATIC_LIBRARIES += spine_static 								LOCAL_STATIC_LIBRARIES += ccnet
+LOCAL_STATIC_LIBRARIES += cocos_network_static 						LOCAL_STATIC_LIBRARIES += audio
+LOCAL_STATIC_LIBRARIES += audioengine_static 						LOCAL_STATIC_LIBRARIES += spine
+LOCAL_STATIC_LIBRARIES += cocosdenshion_static ?????????????????????????
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/platform/android/Android.mk
+
+LOCAL_MODULE := cocos2dxandroid_static 								LOCAL_MODULE := ccandroid
+LOCAL_MODULE_FILENAME := libcocos2dandroid 							LOCAL_MODULE_FILENAME := libccandroid
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/scripting/lua-bindings/proj.android/Android.mk
+
+LOCAL_MODULE := cocos2d_lua_android_static 							LOCAL_MODULE := cclua_android
+LOCAL_MODULE_FILENAME := libluacocos2dandroid 						LOCAL_MODULE_FILENAME := libluaccandroid
+LUA_STATIC_LIB := luajit_static 									LUA_STATIC_LIB := ext_luajit
+LOCAL_MODULE    := cocos2d_lua_static 								LOCAL_MODULE    := cclua_static
+LOCAL_MODULE_FILENAME := libluacocos2d 								LOCAL_MODULE_FILENAME := libluacc
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2d_lua_android_static 			LOCAL_WHOLE_STATIC_LIBRARIES := cclua_android
+LOCAL_STATIC_LIBRARIES := cocos2dx_static 							LOCAL_STATIC_LIBRARIES := cc_static
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/templates/lua-template-default/frameworks/runtime-src/proj.android/app/jini/Android.mk
+
+APP_STL := gnustl_static											APP_STL := c++_static
+
+
+
+								APP_ABI := armeabi     ----------> APP_ABI := armeabi-v7a
+								# developers report it will cause error on Windows
+								# APP_SHORT_COMMANDS := true
+
+
+
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp: In member function ‘void cocos2d::SpriteFrameCache::afterAsyncLoad(void*)’:
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:826:94: error: no matching function for call to ‘cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, cocos2d::Texture2D*&)’
+             addSpriteFramesWithDictionary(asyncLoadParam->dictionary, asyncLoadParam->texture);
+                                                                                              ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:826:94: note: candidates are:
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:117:6: note: void cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, cocos2d::Texture2D*, const string&)
+ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dictionary, Texture2D* texture, const std::string &plist)
+      ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:117:6: note:   candidate expects 3 arguments, 2 provided
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:278:6: note: void cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, const string&, const string&)
+ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dict, const std::string &texturePath, const std::string &plist)
+      ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:278:6: note:   candidate expects 3 arguments, 2 provided
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:828:13: error: ‘_loadedFileNames’ was not declared in this scope
+             _loadedFileNames->insert(asyncLoadParam->plist);
+             ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp: In member function ‘void cocos2d::SpriteFrameCache::addSpriteFramesWithFileAsync(const string&, const string&, const std::function<void(cocos2d::Ref*, bool)>&, cocos2d::Ref*)’:
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:839:13: error: ‘_loadedFileNames’ was not declared in this scope
+         if (_loadedFileNames->find(plist) != _loadedFileNames->end())
+             ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp: In member function ‘void cocos2d::SpriteFrameCache::handleReponseSpriteFrame(float)’:
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:1002:98: error: no matching function for call to ‘cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, cocos2d::Texture2D*&)’
+                 addSpriteFramesWithDictionary(asyncLoadParam->dictionary, asyncLoadParam->texture);
+                                                                                                  ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:1002:98: note: candidates are:
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:117:6: note: void cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, cocos2d::Texture2D*, const string&)
+ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dictionary, Texture2D* texture, const std::string &plist)
+      ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:117:6: note:   candidate expects 3 arguments, 2 provided
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:278:6: note: void cocos2d::SpriteFrameCache::addSpriteFramesWithDictionary(cocos2d::ValueMap&, const string&, const string&)
+ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dict, const std::string &texturePath, const std::string &plist)
+      ^
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:278:6: note:   candidate expects 3 arguments, 2 provided
+/home/cpu11191/Desktop/cocos2d-x/NEW_PROJECTS_DIR/MyGame/cocos2d/cocos/2d/CCSpriteFrameCache.cpp:1004:17: error: ‘_loadedFileNames’ was not declared in this scope
+                 _loadedFileNames->insert(asyncLoadParam->plist);
+                 ^
+[ 17%] Building CXX object engine/cocos/core/CMakeFiles/cocos2d.dir/2d/CCTMXObjectGroup.cpp.o
+[ 18%] Building CXX object engine/cocos/core/CMakeFiles/cocos2d.dir/2d/CCTMXTiledMap.cpp.o
+[ 18%] Building CXX object engine/cocos/core/CMakeFiles/cocos2d.dir/2d/CCTMXXMLParser.cpp.o
+engine/cocos/core/CMakeFiles/cocos2d.dir/build.make:1478: recipe for target 'engine/cocos/core/CMakeFiles/cocos2d.dir/2d/CCSpriteFrameCache.cpp.o' failed
+make[2]: *** [engine/cocos/core/CMakeFiles/cocos2d.dir/2d/CCSpriteFrameCache.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+CMakeFiles/Makefile2:145: recipe for target 'engine/cocos/core/CMakeFiles/cocos2d.dir/all' failed
+make[1]: *** [engine/cocos/core/CMakeFiles/cocos2d.dir/all] Error 2
+Makefile:83: recipe for target 'all' failed
+make: *** [all] Error 2
+
