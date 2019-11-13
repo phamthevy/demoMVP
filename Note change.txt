@@ -1,0 +1,72 @@
+Note change:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/Android.mk
+
+LOCAL_MODULE := cocos2dx_internal_static							LOCAL_MODULE := cc_core
+LOCAL_MODULE_FILENAME := libcocos2dxinternal						LOCAL_MODULE_FILENAME := libcc_core
+LOCAL_STATIC_LIBRARIES := cocos_freetype2_static					LOCAL_STATIC_LIBRARIES := ext_freetype2
+LOCAL_STATIC_LIBRARIES += cocos_png_static							LOCAL_STATIC_LIBRARIES += ext_png
+LOCAL_STATIC_LIBRARIES += cocos_jpeg_static							LOCAL_STATIC_LIBRARIES += ext_jpeg
+LOCAL_STATIC_LIBRARIES += cocos_tiff_static							LOCAL_STATIC_LIBRARIES += ext_tiff
+LOCAL_STATIC_LIBRARIES += cocos_webp_static							LOCAL_STATIC_LIBRARIES += ext_webp
+LOCAL_STATIC_LIBRARIES += cocos_chipmunk_static						LOCAL_STATIC_LIBRARIES += ext_chipmunk 
+LOCAL_STATIC_LIBRARIES += cocos_zlib_static							LOCAL_STATIC_LIBRARIES += ext_zlib
+LOCAL_STATIC_LIBRARIES += cocos_ssl_static							LOCAL_STATIC_LIBRARIES += ext_ssl
+LOCAL_STATIC_LIBRARIES += recast_static								LOCAL_STATIC_LIBRARIES += ext_recast
+LOCAL_STATIC_LIBRARIES += bullet_static								LOCAL_STATIC_LIBRARIES += ext_bullet
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dxandroid_static				LOCAL_WHOLE_STATIC_LIBRARIES := ccandroid
+
+LOCAL_MODULE := cocos2dx_internal_static							LOCAL_MODULE := cc_static
+LOCAL_MODULE_FILENAME := libcocos2d 								LOCAL_MODULE_FILENAME := libcc
+
+LOCAL_STATIC_LIBRARIES := cocostudio_static 						LOCAL_STATIC_LIBRARIES := ccs
+LOCAL_STATIC_LIBRARIES += cocosbuilder_static 						LOCAL_STATIC_LIBRARIES += ccb
+LOCAL_STATIC_LIBRARIES += cocos3d_static 							LOCAL_STATIC_LIBRARIES += cc3d
+LOCAL_STATIC_LIBRARIES += spine_static 								LOCAL_STATIC_LIBRARIES += ccnet
+LOCAL_STATIC_LIBRARIES += cocos_network_static 						LOCAL_STATIC_LIBRARIES += audio
+LOCAL_STATIC_LIBRARIES += audioengine_static 						LOCAL_STATIC_LIBRARIES += spine
+LOCAL_STATIC_LIBRARIES += cocosdenshion_static ?????????????????????????
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/platform/android/Android.mk
+
+LOCAL_MODULE := cocos2dxandroid_static 								LOCAL_MODULE := ccandroid
+LOCAL_MODULE_FILENAME := libcocos2dandroid 							LOCAL_MODULE_FILENAME := libccandroid
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/cocos/scripting/lua-bindings/proj.android/Android.mk
+
+LOCAL_MODULE := cocos2d_lua_android_static 							LOCAL_MODULE := cclua_android
+LOCAL_MODULE_FILENAME := libluacocos2dandroid 						LOCAL_MODULE_FILENAME := libluaccandroid
+LUA_STATIC_LIB := luajit_static 									LUA_STATIC_LIB := ext_luajit
+LOCAL_MODULE    := cocos2d_lua_static 								LOCAL_MODULE    := cclua_static
+LOCAL_MODULE_FILENAME := libluacocos2d 								LOCAL_MODULE_FILENAME := libluacc
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2d_lua_android_static 			LOCAL_WHOLE_STATIC_LIBRARIES := cclua_android
+LOCAL_STATIC_LIBRARIES := cocos2dx_static 							LOCAL_STATIC_LIBRARIES := cc_static
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++/templates/lua-template-default/frameworks/runtime-src/proj.android/app/jini/Android.mk
+
+APP_STL := gnustl_static											APP_STL := c++_static
+
+
+
+								APP_ABI := armeabi     ----------> APP_ABI := armeabi-v7a
+								# developers report it will cause error on Windows
+								# APP_SHORT_COMMANDS := true
+
+
+
+
+
+
+
+spRegionAttachment_computeWorldVertices
+cocos2d_lua_static
+CCActionProgressTimer.cpp
+MathUtilNeon64
+MathUtilNeon
+
+
+My suggestion is clean and re-compile the whole project. and cocos command has some difference between 3.16 and 3.17:
+cocos 3.16 uses ndk-build as default but 3.17 uses cmake.
+you can try:
+cocos run -p android --build-type ndk-build
+Thanks,
